@@ -1,51 +1,72 @@
 import { useState } from "react";
 
-const AddTask = () => {
-    const [ data, setData ] = useState({ title: "", details: "", isDone: false });
+const AddTask = ({ update, error, loading, tasks }) => {
+    const [data, setData] = useState({ title: "", details: "", isDone: false });
     const addTask = (e) => {
         e.preventDefault();
         const load = async () => {
             try {
-                const res = await fetch('http://localhost:7000/tasks', {
+                loading(true);
+                const res = await fetch("http://localhost:7000/tasks", {
                     method: "POST",
-                    headers: { "contentType" : "application/json" },
-                    body: JSON.stringify(data)
-                })
-                if(!res.ok) {
-                    throw new Error(`Faild to upload Task. Status: ${res.status}`)
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                });
+                if (!res.ok) {
+                    throw new Error(
+                        `Faild to upload Task. Status: ${res.status}`,
+                    );
                 }
-                setData({...data, title: "", details: "", isDone: false})
+                const newTask = await res.json();
+                update([...(tasks || []), newTask]);
+                setData({ ...data, title: "", details: "", isDone: false });
+                loading(false);
             } catch (e) {
-                console.log(e);
+                loading(true);
+                error(e.message);
+                loading(false);
             }
-        }
+        };
         load();
-    }
+    };
 
     return (
-        <div>
+        <div className="w-full max-w-[850px]">
             <form
-                className="flex gap-5 items-center justify-between w-full"
+                className="flex gap-4 items-stretch justify-between w-full p-6 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-xl border border-white/10 rounded-2xl hover:border-cyan-500/20 transition-all duration-500"
                 onSubmit={(e) => addTask(e)}>
-                <div className="flex flex-col gap-5 items-center justify-between w-full">
-                    <input
-                        type="text"
-                        placeholder="Task Name..."
-                        value={data.title}
-                        onChange={(e) => setData({...data, title: e.target.value })}
-                        className="outline-0 py-3 px-5 rounded-sm bg-white/20 text-lg text-white font-mono tracking-tight w-full"
-                    />
-                    <textarea
-                        maxLength={45}
-                        placeholder="More about task..."
-                        value={data.details}
-                        onChange={e => setData({...data, details: e.target.value})}
-                        className="outline-0 py-3 px-5 rounded-sm bg-white/20 text-lg text-white font-mono tracking-tight w-full"
-                    />
+                <div className="flex flex-col gap-4 items-center justify-between w-full">
+                    <div className="relative w-full group">
+                        <input
+                            type="text"
+                            placeholder="Task name..."
+                            value={data.title}
+                            onChange={(e) =>
+                                setData({ ...data, title: e.target.value })
+                            }
+                            className="w-full outline-none py-4 px-5 rounded-xl bg-white/5 border border-white/10 text-lg text-white placeholder-white/30 tracking-wide focus:border-cyan-500/50 focus:bg-cyan-500/5 focus:shadow-lg focus:shadow-cyan-500/10 transition-all duration-300"
+                        />
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 -z-10 blur-xl transition-opacity duration-500"></div>
+                    </div>
+                    <div className="relative w-full group">
+                        <textarea
+                            maxLength={45}
+                            rows={2}
+                            placeholder="Describe your task..."
+                            value={data.details}
+                            onChange={(e) =>
+                                setData({ ...data, details: e.target.value })
+                            }
+                            className="w-full outline-none py-4 px-5 rounded-xl bg-white/5 border border-white/10 text-base text-white placeholder-white/30 tracking-wide resize-none focus:border-cyan-500/50 focus:bg-cyan-500/5 focus:shadow-lg focus:shadow-cyan-500/10 transition-all duration-300"
+                        />
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 -z-10 blur-xl transition-opacity duration-500"></div>
+                    </div>
                 </div>
+
                 <button
-                    className="bg-[#EA7B7B] px-15 h-full rounded-sm cursor-pointer text-2xl font-bold uppercase"
-                    type="submit" disabled={ !data.title || !data.details }>
+                    className="px-8 rounded-xl cursor-pointer text-lg font-bold uppercase tracking-wider bg-gradient-to-br from-cyan-500 to-cyan-600 text-white border border-cyan-400/30 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none transition-all duration-300"
+                    type="submit"
+                    disabled={!data.title || !data.details}>
                     Add
                 </button>
             </form>

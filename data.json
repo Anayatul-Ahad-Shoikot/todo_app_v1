@@ -1,34 +1,10 @@
 {
   "tasks": [
     {
-      "id": "0e84",
-      "title": "Task 2",
-      "details": "Details of task 2",
-      "isDone": false
-    },
-    {
-      "title": "Task 3",
-      "details": "Details of Task 3",
-      "isDone": false,
-      "id": "0a66"
-    },
-    {
-      "id": "a625",
-      "title": "Task 5",
-      "details": "details of task 5",
-      "isDone": false
-    },
-    {
-      "id": "019a",
-      "title": "task 10",
-      "details": "details 10",
-      "isDone": false
-    },
-    {
-      "id": "3014",
-      "title": "task 50",
-      "details": "details 50",
-      "isDone": false
+      "id": "04ec",
+      "title": "Git Push",
+      "details": "push the latest updated todo app V1.",
+      "isDone": true
     }
   ]
 }
