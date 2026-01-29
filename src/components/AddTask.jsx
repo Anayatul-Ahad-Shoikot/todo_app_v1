@@ -50,7 +50,6 @@ const AddTask = ({ update, error, loading, tasks }) => {
                     </div>
                     <div className="relative w-full group">
                         <textarea
-                            maxLength={45}
                             rows={2}
                             placeholder="Describe your task..."
                             value={data.details}

@@ -20,6 +20,11 @@ A modern, sleek basic task management application built with React, JSON-server.
 
 Todo App V1.0 is a project for learning purpose only. It demonstrate how react works in very simple way.It is a beautifully designed task management application that combines functionality with aesthetics. It features a stunning dark theme with glassmorphism effects, glowing accents, and smooth animations that make task management a delightful experience.
 
+
+## 📸 Screenshots
+
+![Home Page](public/homePage.png)
+
 ---
 
 ## ✨ Features

@@ -1,10 +1,16 @@
 {
   "tasks": [
     {
-      "id": "04ec",
-      "title": "Git Push",
-      "details": "push the latest updated todo app V1.",
-      "isDone": true
+      "id": "3728",
+      "title": "Task 1: Setup Project Environment",
+      "details": "Initialize the project using Vite and configure React with Tailwind CSS. This task ensures the development environment is stable, fast, and ready for feature work without future configuration headaches.",
+      "isDone": false
+    },
+    {
+      "id": "52f4",
+      "title": "Task 2: Create Task Management UI",
+      "details": "Design and implement the core UI for displaying tasks using reusable components. Focus on clarity, proper spacing, and icon usage with lucide-react to keep the interface clean and intuitive.",
+      "isDone": false
     }
   ]
 }
